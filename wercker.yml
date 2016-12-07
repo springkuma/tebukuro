@@ -12,38 +12,13 @@ build:
 
     - bundle-install
 
-backend-request-spec:
+    - internal/store-container
+
+dev:
   steps:
     - install-packages:
-      packages: nodejs
+        packages: nodejs
 
     - bundle-install
-
-    - rails-database-yml:
-      service: postgresql-docker
-
-    - script:
-      name: Prepare database
-      code: RAILS_ENV=test bin/rake db:schema:load
-
-    - script:
-      name: Run request spec
-      code: bin/rake spec:requests
-
-backend-model-spec:
-  steps:
-    - install-packages:
-      packages: nodejs
-
-    - bundle-install
-
-    - rails-database-yml:
-      service: postgresql-docker
-
-    - script:
-      name: Prepare database
-      code: RAILS_ENV=test bin/rake db:schema:load
-
-    - script:
-      name: Run model spec
-      code: bin/rake spec:models
+    - internal/shell:
+      cmd: /bin/bash
