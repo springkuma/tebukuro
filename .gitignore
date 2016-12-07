@@ -33,4 +33,4 @@
 # RubyMineが勝手に作ってしまうファイル
 .idea
 
-
+.wercker

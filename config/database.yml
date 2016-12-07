@@ -1,19 +1,9 @@
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-
-development:
-  <<: *default
-  database: tebukuro_development
-
 test:
-  <<: *default
-  database: tebukuro_test
-
-production:
-  <<: *default
-  database: tebukuro_production
+    adapter: <%= ENV['WERCKER_POSTGRESQL_ADAPTER'] || 'postgresql' %>
+    encoding: "utf8"
+    database: <%= ENV['POSTGRES_ENV_POSTGRES_DB'] || ENV['POSTGRES_ENV_POSTGRES_USER'] || 'postgres' %><%= ENV['TEST_ENV_NUMBER'] %>
+    username: <%= ENV['POSTGRES_ENV_POSTGRES_USER'] || 'postgres' %>
+    password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
+    host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+    port: <%= ENV['POSTGRES_PORT_5432_TCP_PORT'] %>
+    min_messages: warning
